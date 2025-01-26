@@ -13,7 +13,6 @@ class Bank:
             with self.lock:
                 self.balance += amount
                 print(f"Пополнение: {amount}. Баланс: {self.balance}")
-                # Условие на разблокировку убрано, так как Lock не имеет метода locked()
             sleep(0.001)
 
     def take(self):
@@ -29,16 +28,12 @@ class Bank:
             sleep(0.001)
 
 bk = Bank()
-
-# Создание потоков
 th1 = threading.Thread(target=bk.deposit)
 th2 = threading.Thread(target=bk.take)
 
-# Запуск потоков
 th1.start()
 th2.start()
 
-# Ожидание завершения потоков
 th1.join()
 th2.join()
 
